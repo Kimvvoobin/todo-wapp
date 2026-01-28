@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO 웹앱</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">📝 TODO 웹앱</h1>
+            <button class="theme-toggle" id="themeToggle" aria-label="다크 모드 토글">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </header>
+
+        <main class="main-content">
+            <!-- TODO 입력 영역 -->
+            <section class="input-section">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="todoInput" 
+                        class="todo-input" 
+                        placeholder="할 일을 입력하세요..."
+                        aria-label="할 일 입력"
+                    >
+                    <button class="add-btn" id="addBtn" aria-label="할 일 추가">추가</button>
+                </div>
+            </section>
+
+            <!-- 통계 및 필터 영역 -->
+            <section class="stats-section">
+                <div class="stats">
+                    <span class="stat-item">
+                        전체: <strong id="totalCount">0</strong>
+                    </span>
+                    <span class="stat-item">
+                        진행중: <strong id="activeCount">0</strong>
+                    </span>
+                    <span class="stat-item">
+                        완료: <strong id="completedCount">0</strong>
+                    </span>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all" aria-label="전체 필터">전체</button>
+                    <button class="filter-btn" data-filter="active" aria-label="진행중 필터">진행중</button>
+                    <button class="filter-btn" data-filter="completed" aria-label="완료 필터">완료</button>
+                </div>
+            </section>
+
+            <!-- TODO 리스트 영역 -->
+            <section class="todo-section">
+                <ul class="todo-list" id="todoList" role="list">
+                    <!-- TODO 항목들이 여기에 동적으로 추가됩니다 -->
+                </ul>
+                <div class="empty-state" id="emptyState">
+                    <p>할 일이 없습니다. 새로운 할 일을 추가해보세요! ✨</p>
+                </div>
+            </section>
+
+            <!-- 액션 버튼 영역 -->
+            <section class="actions-section">
+                <button class="action-btn" id="clearCompletedBtn" aria-label="완료된 항목 삭제">
+                    완료 항목 삭제
+                </button>
+                <button class="action-btn danger" id="clearAllBtn" aria-label="전체 삭제">
+                    전체 삭제
+                </button>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Firebase Firestore와 LocalStorage를 활용한 TODO 웹앱</p>
+        </footer>
+    </div>
+
+    <!-- 수정 모달 -->
+    <div class="modal" id="editModal" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <h2 id="editModalTitle" class="modal-title">할 일 수정</h2>
+            <input 
+                type="text" 
+                id="editInput" 
+                class="todo-input" 
+                aria-label="수정할 할 일 입력"
+            >
+            <div class="modal-buttons">
+                <button class="btn btn-primary" id="saveEditBtn">저장</button>
+                <button class="btn btn-secondary" id="cancelEditBtn">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
